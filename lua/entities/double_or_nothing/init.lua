@@ -213,6 +213,14 @@ function ENT:Use(act, call)
 			return --Cannot spin as your on anouther machine
 		end
 
+
+for i,v in pairs(player.GetAll()) do
+
+	-- We need to restrict a serious exploit. Easy fix to not let them play it at all (for now) 
+if BDON_CONFIG.CasinoOwners[team.GetName(v:Team())] then
+   v:ChatPrint("[BLUE'S SLOTS] Sorry while being on the casino job you self can't play the casino")
+   return
+end
 		if self.user == call then
 			self.timeSinceLastUsed = CurTime()
 			self.user.bdonTimeSinceLastUse = CurTime()
@@ -234,6 +242,12 @@ function ENT:Use(act, call)
 			--Take money
 			if BDON_CONFIG.canAfford(call, BDON_CONFIG.bet) then
 				BDON_CONFIG.takeMoney(call, BDON_CONFIG.bet)
+
+				-- Function to give a cut of money to the active Casino Owners
+             if BDON_CONFIG.CasinoOwners[team.GetName(v:Team())] then
+                BDON_CONFIG.AddMoney(v, -BDON_CONFIG.bet/BDON_CONFIG.CasinoOwnersCut)
+                v:ChatPrint("[BLUE'S SLOTS]"..call:Nick().."played on the casino ("..BDON_CONFIG.CurrenyPrefix..BDON_CONFIG.bet/BDON_CONFIG.CasinoOwnersCut..")")
+end end
 			else
 				call:ChatPrint("[BLUE'S SLOTS] You cannot afford to play! ("..BDON_CONFIG.CurrenyPrefix..BDON_CONFIG.bet..")")
 				return false

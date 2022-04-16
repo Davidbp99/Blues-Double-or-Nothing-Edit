@@ -24,6 +24,15 @@ BDON_CONFIG = {}
 --This is the base bet amount. Change this how you please, the winnings scale with it (except for jackpot)
 BDON_CONFIG.bet = 500 
 
+--
+BDON_CONFIG.CasinoOwners = {
+  "Casino Manager",
+  "Casino Owner",
+}
+
+BDON_CONFIG.CasinoOwnersCut = 2  -- 1= 100% 2= 50% 4 = 25% 5= 20% etc
+
+
 --This is the minimum the jackpot can be (its random)
 BDON_CONFIG.minJackpot = 500000
  
